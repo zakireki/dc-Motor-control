@@ -1,0 +1,409 @@
+{
+  "version": 1,
+  "name": "dc Motor control",
+  "parts": [
+    {
+      "id": "bb1",
+      "type": "breadboard-half",
+      "props": {},
+      "x": 60,
+      "y": -60,
+      "rot": 0
+    },
+    {
+      "id": "uno1",
+      "type": "uno",
+      "props": {},
+      "x": -560,
+      "y": 240,
+      "rot": 0
+    },
+    {
+      "id": "dcmotor1",
+      "type": "dcmotor",
+      "props": {
+        "model": "custom",
+        "voltage": 6,
+        "rpm": 2000,
+        "resistance": 6,
+        "inertia": 120,
+        "back_emf": 0.85
+      },
+      "x": 600,
+      "y": -300,
+      "rot": 270
+    },
+    {
+      "id": "battery1",
+      "type": "battery",
+      "props": {
+        "kind": "aa4",
+        "charge": 100
+      },
+      "x": 340,
+      "y": 420,
+      "rot": 180
+    },
+    {
+      "id": "l293d1",
+      "type": "l293d",
+      "props": {
+        "drop": 1.2,
+        "resistance": 0.6
+      },
+      "x": 260,
+      "y": 80,
+      "rot": 0
+    },
+    {
+      "id": "dcmotor2",
+      "type": "dcmotor",
+      "props": {
+        "model": "custom",
+        "voltage": 6,
+        "rpm": 2000,
+        "resistance": 6,
+        "inertia": 120,
+        "back_emf": 0.85
+      },
+      "x": 420,
+      "y": -300,
+      "rot": 270
+    }
+  ],
+  "wires": [
+    {
+      "id": "w1",
+      "from": "uno1:GNDc",
+      "to": "bb1:bn3",
+      "color": "#7a8290",
+      "bends": [
+        {
+          "x": -360,
+          "y": 800
+        },
+        {
+          "x": 140,
+          "y": 800
+        }
+      ]
+    },
+    {
+      "id": "w2",
+      "from": "bb1:tn25",
+      "to": "bb1:bn25",
+      "color": "#7a8290",
+      "bends": [
+        {
+          "x": 660,
+          "y": 140
+        }
+      ]
+    },
+    {
+      "id": "w3",
+      "from": "uno1:5V",
+      "to": "bb1:tp1",
+      "color": "#e14b4b",
+      "bends": [
+        {
+          "x": -400,
+          "y": 760
+        },
+        {
+          "x": 100,
+          "y": 760
+        }
+      ]
+    },
+    {
+      "id": "w4",
+      "from": "battery1:V-",
+      "to": "bb1:bn13",
+      "color": "#7a8290",
+      "bends": [
+        {
+          "x": 380,
+          "y": 360
+        }
+      ]
+    },
+    {
+      "id": "w5",
+      "from": "battery1:V+",
+      "to": "bb1:d18",
+      "color": "#e14b4b",
+      "bends": [
+        {
+          "x": 420,
+          "y": 300
+        }
+      ]
+    },
+    {
+      "id": "w6",
+      "from": "bb1:j11",
+      "to": "bb1:tp9",
+      "color": "#e14b4b",
+      "bends": [
+        {
+          "x": 280,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "id": "w7",
+      "from": "bb1:a15",
+      "to": "bb1:bn12",
+      "color": "#7a8290",
+      "bends": [
+        {
+          "x": 360,
+          "y": 280
+        }
+      ]
+    },
+    {
+      "id": "w8",
+      "from": "bb1:a14",
+      "to": "bb1:bn11",
+      "color": "#7a8290",
+      "bends": [
+        {
+          "x": 340,
+          "y": 280
+        }
+      ]
+    },
+    {
+      "id": "w9",
+      "from": "bb1:tn12",
+      "to": "bb1:j15",
+      "color": "#7a8290",
+      "bends": [
+        {
+          "x": 360,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "id": "w10",
+      "from": "bb1:tn11",
+      "to": "bb1:j14",
+      "color": "#7a8290",
+      "bends": [
+        {
+          "x": 340,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "id": "w13",
+      "from": "bb1:a17",
+      "to": "uno1:2",
+      "color": "#8a5cf5",
+      "bends": [
+        {
+          "x": 400,
+          "y": 340
+        },
+        {
+          "x": 20,
+          "y": 340
+        },
+        {
+          "x": 20,
+          "y": 160
+        },
+        {
+          "x": -140,
+          "y": 160
+        }
+      ]
+    },
+    {
+      "id": "w11",
+      "from": "uno1:1",
+      "to": "bb1:a12",
+      "color": "#e8a33d",
+      "bends": [
+        {
+          "x": -120,
+          "y": 200
+        },
+        {
+          "x": 40,
+          "y": 200
+        },
+        {
+          "x": 40,
+          "y": 380
+        },
+        {
+          "x": 300,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "id": "w12",
+      "from": "bb1:a13",
+      "to": "dcmotor1:1",
+      "color": "#8a5cf5",
+      "bends": [
+        {
+          "x": 320,
+          "y": 260
+        },
+        {
+          "x": 660,
+          "y": 260
+        }
+      ]
+    },
+    {
+      "id": "w14",
+      "from": "bb1:a16",
+      "to": "dcmotor1:2",
+      "color": "#20b2c6",
+      "bends": [
+        {
+          "x": 380,
+          "y": 380
+        },
+        {
+          "x": 700,
+          "y": 380
+        }
+      ]
+    },
+    {
+      "id": "w17",
+      "from": "bb1:j17",
+      "to": "uno1:4",
+      "color": "#2f6fed",
+      "bends": [
+        {
+          "x": 400,
+          "y": -160
+        },
+        {
+          "x": -180,
+          "y": -160
+        }
+      ]
+    },
+    {
+      "id": "w18",
+      "from": "bb1:j12",
+      "to": "uno1:7",
+      "color": "#8a5cf5",
+      "bends": [
+        {
+          "x": 300,
+          "y": -200
+        },
+        {
+          "x": -240,
+          "y": -200
+        }
+      ]
+    },
+    {
+      "id": "w19",
+      "from": "bb1:a11",
+      "to": "uno1:3",
+      "color": "#1f9d55",
+      "bends": [
+        {
+          "x": 280,
+          "y": 420
+        },
+        {
+          "x": -160,
+          "y": 420
+        }
+      ]
+    },
+    {
+      "id": "w20",
+      "from": "bb1:j18",
+      "to": "uno1:5",
+      "color": "#e8a33d",
+      "bends": [
+        {
+          "x": 420,
+          "y": -280
+        },
+        {
+          "x": -200,
+          "y": -280
+        }
+      ]
+    },
+    {
+      "id": "w15",
+      "from": "bb1:j16",
+      "to": "dcmotor2:2",
+      "color": "#1f9d55",
+      "bends": [
+        {
+          "x": 380,
+          "y": -80
+        },
+        {
+          "x": 520,
+          "y": -80
+        }
+      ]
+    },
+    {
+      "id": "w16",
+      "from": "bb1:j13",
+      "to": "dcmotor2:1",
+      "color": "#e8a33d",
+      "bends": [
+        {
+          "x": 320,
+          "y": -120
+        },
+        {
+          "x": 480,
+          "y": -120
+        }
+      ]
+    }
+  ],
+  "labels": {
+    "uno1:GNDc": "black"
+  },
+  "comments": [
+    {
+      "id": "c1",
+      "x": 104.90305897890222,
+      "y": -31.846693157272803,
+      "author": "rekik zaki",
+      "at": 1793134734087,
+      "text": ""
+    }
+  ],
+  "projects": {
+    "*": {
+      "files": {
+        "sketch.ino": "// Mokxi.\n// This circuit has no board, so Run simulates the parts only.\n// Add a board and pick a program in its Firmware panel: the editor then shows\n// that program's source, and Run builds what you type here for that board.\n\nvoid setup() {\n  pinMode(13, OUTPUT);\n  Serial.begin(115200);\n}\n\nvoid loop() {\n  digitalWrite(13, HIGH);\n  delay(500);\n  digitalWrite(13, LOW);\n  delay(500);\n}\n"
+      },
+      "main": "sketch.ino"
+    },
+    "uno1": {
+      "files": {
+        "sketch.ino": "\n#include \"MotorDriver.h\"\nMotorDriver car(1,2,4,7,3,5);\nvoid setup() {\n  car.initPins();\n  car.setSpeed(255);\n}\nvoid loop() {\ncar.moveForward();\n  delay(2000);\n    car.stopRobot();\n   delay(2000);\n  \n  car.turnRight();\n  delay(2000);\n    car.stopRobot();\n   delay(2000);\n  \n  car.turnLeft();\n  delay(2000);\n   car.stopRobot();\n  delay(2000);\n}\n  \n  \n",
+        "MotorDriver.cpp": "#include \"MotorDriver.h\"\n\nMotorDriver::MotorDriver(int rFwd, int rBwd, int lFwd, int lBwd, int speedA, int speedB) {\n  rightMotorForward = rFwd;\n  rightMotorBackward = rBwd;\n  leftMotorForward = lFwd;\n  leftMotorBackward = lBwd;\n  \n  pinSpeedA = speedA;\n  pinSpeedB = speedB;\n}\n\nvoid MotorDriver::initPins() {\n  pinMode(rightMotorForward, OUTPUT);\n  pinMode(rightMotorBackward, OUTPUT);\n  pinMode(leftMotorForward, OUTPUT);\n  pinMode(leftMotorBackward, OUTPUT);\n  pinMode(pinSpeedA, OUTPUT);\n  pinMode(pinSpeedB, OUTPUT);\n}\n\nvoid MotorDriver::setSpeed(int speed) {\n  analogWrite(pinSpeedA, speed);\n  analogWrite(pinSpeedB, speed);\n}\n\nvoid MotorDriver::moveForward() {\n  digitalWrite(rightMotorForward, HIGH);\n  digitalWrite(rightMotorBackward, LOW);\n  digitalWrite(leftMotorForward, HIGH);\n  digitalWrite(leftMotorBackward, LOW);\n}\n\nvoid MotorDriver::turnRight() {\n  digitalWrite(rightMotorForward, LOW);\n  digitalWrite(rightMotorBackward, HIGH);\n  digitalWrite(leftMotorForward, HIGH);\n  digitalWrite(leftMotorBackward, LOW);\n}\n\nvoid MotorDriver::turnLeft() {\n  digitalWrite(rightMotorForward, HIGH);\n  digitalWrite(rightMotorBackward, LOW);\n  digitalWrite(leftMotorForward, LOW);\n  digitalWrite(leftMotorBackward, HIGH);\n}\n\nvoid MotorDriver::stopRobot() {\n  digitalWrite(rightMotorForward, LOW);\n  digitalWrite(rightMotorBackward, LOW);\n  digitalWrite(leftMotorForward, LOW);\n  digitalWrite(leftMotorBackward, LOW);\n}\n\n\n",
+        "MotorDriver.h": "#pragma once\n\n#include <Arduino.h>\n\nclass MotorDriver {\n  private:\n    int rightMotorForward;\n    int rightMotorBackward;\n    int leftMotorForward;\n    int leftMotorBackward;\n    int pinSpeedA;\n    int pinSpeedB;\n\n  public:\n    MotorDriver(int rFwd, int rBwd, int lFwd, int lBwd, int speedA, int speedB);\n  \n    void initPins();\n    void setSpeed(int speed);\n    void moveForward();\n    void turnRight();\n    void turnLeft();\n    void stopRobot();\n};\n\n\n"
+      },
+      "main": "sketch.ino"
+    }
+  }
+}
