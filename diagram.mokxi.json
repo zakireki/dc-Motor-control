@@ -69,6 +69,27 @@
       "x": 420,
       "y": -300,
       "rot": 270
+    },
+    {
+      "id": "hcsr041",
+      "type": "hcsr04",
+      "props": {
+        "temperature": 20
+      },
+      "x": 860,
+      "y": -140,
+      "rot": 0
+    },
+    {
+      "id": "battery2",
+      "type": "battery",
+      "props": {
+        "kind": "aa3",
+        "charge": 100
+      },
+      "x": 860,
+      "y": 200,
+      "rot": 180
     }
   ],
   "wires": [
@@ -375,6 +396,118 @@
           "y": -120
         }
       ]
+    },
+    {
+      "id": "w21",
+      "from": "hcsr041:VCC",
+      "to": "battery2:V+",
+      "color": "#8a5cf5",
+      "bends": [
+        {
+          "x": 920,
+          "y": 80
+        },
+        {
+          "x": 940,
+          "y": 80
+        }
+      ]
+    },
+    {
+      "id": "w23",
+      "from": "hcsr041:TRIG",
+      "to": "bb1:f6",
+      "color": "#d94f9c",
+      "bends": [
+        {
+          "x": 940,
+          "y": 160
+        },
+        {
+          "x": 180,
+          "y": 160
+        }
+      ]
+    },
+    {
+      "id": "w24",
+      "from": "hcsr041:ECHO",
+      "to": "bb1:f7",
+      "color": "#7a8290",
+      "bends": [
+        {
+          "x": 960,
+          "y": 200
+        },
+        {
+          "x": 200,
+          "y": 200
+        }
+      ]
+    },
+    {
+      "id": "w25",
+      "from": "uno1:9",
+      "to": "bb1:g6",
+      "color": "#e14b4b",
+      "bends": [
+        {
+          "x": -300,
+          "y": 120
+        },
+        {
+          "x": 180,
+          "y": 120
+        }
+      ]
+    },
+    {
+      "id": "w26",
+      "from": "bb1:h7",
+      "to": "uno1:10",
+      "color": "#2f6fed",
+      "bends": [
+        {
+          "x": 200,
+          "y": 40
+        },
+        {
+          "x": -320,
+          "y": 40
+        }
+      ]
+    },
+    {
+      "id": "w22",
+      "from": "battery2:V-",
+      "to": "bb1:bn23",
+      "color": "#2f6fed",
+      "bends": [
+        {
+          "x": 900,
+          "y": 180
+        },
+        {
+          "x": 620,
+          "y": 180
+        }
+      ]
+    },
+    {
+      "id": "w27",
+      "from": "hcsr041:GND",
+      "to": "bb1:bn21",
+      "color": "#1f9d55",
+      "bends": [
+        {
+          "x": 980,
+          "y": 120
+        },
+        {
+          "x": 580,
+          "y": 120
+        }
+      ]
     }
   ],
   "labels": {
@@ -399,9 +532,11 @@
     },
     "uno1": {
       "files": {
-        "sketch.ino": "\n#include \"MotorDriver.h\"\nMotorDriver car(1,2,4,7,3,5);\nvoid setup() {\n  car.initPins();\n  car.setSpeed(255);\n}\nvoid loop() {\ncar.moveForward();\n  delay(2000);\n    car.stopRobot();\n   delay(2000);\n  \n  car.turnRight();\n  delay(2000);\n    car.stopRobot();\n   delay(2000);\n  \n  car.turnLeft();\n  delay(2000);\n   car.stopRobot();\n  delay(2000);\n}\n  \n  \n",
+        "sketch.ino": "\n#include \"MotorDriver.h\"\n#include \"UltrasonicSensor.h\"\n\n\nMotorDriver car(1,2,4,7,3,5);\nUltrasonicSensor sensor(9 , 10);\nvoid setup() {\n  car.initPins();\n  car.setSpeed(255);\n  Serial.begin(9600);\n\n  sensor.initPins();\n}\nvoid loop() {\n\n  Serial.println(sensor.readCm());\n  delay(200);\n\n car.moveForward();\n  delay(2000);\n    car.stopRobot();\n   delay(2000);\n  \n  car.turnRight();\n  delay(2000);\n    car.stopRobot();\n   delay(2000);\n  \n  car.turnLeft();\n  delay(2000);\n   car.stopRobot();\n  delay(2000);\n  \n\n}\n  \n",
         "MotorDriver.cpp": "#include \"MotorDriver.h\"\n\nMotorDriver::MotorDriver(int rFwd, int rBwd, int lFwd, int lBwd, int speedA, int speedB) {\n  rightMotorForward = rFwd;\n  rightMotorBackward = rBwd;\n  leftMotorForward = lFwd;\n  leftMotorBackward = lBwd;\n  \n  pinSpeedA = speedA;\n  pinSpeedB = speedB;\n}\n\nvoid MotorDriver::initPins() {\n  pinMode(rightMotorForward, OUTPUT);\n  pinMode(rightMotorBackward, OUTPUT);\n  pinMode(leftMotorForward, OUTPUT);\n  pinMode(leftMotorBackward, OUTPUT);\n  pinMode(pinSpeedA, OUTPUT);\n  pinMode(pinSpeedB, OUTPUT);\n}\n\nvoid MotorDriver::setSpeed(int speed) {\n  analogWrite(pinSpeedA, speed);\n  analogWrite(pinSpeedB, speed);\n}\n\nvoid MotorDriver::moveForward() {\n  digitalWrite(rightMotorForward, HIGH);\n  digitalWrite(rightMotorBackward, LOW);\n  digitalWrite(leftMotorForward, HIGH);\n  digitalWrite(leftMotorBackward, LOW);\n}\n\nvoid MotorDriver::turnRight() {\n  digitalWrite(rightMotorForward, LOW);\n  digitalWrite(rightMotorBackward, HIGH);\n  digitalWrite(leftMotorForward, HIGH);\n  digitalWrite(leftMotorBackward, LOW);\n}\n\nvoid MotorDriver::turnLeft() {\n  digitalWrite(rightMotorForward, HIGH);\n  digitalWrite(rightMotorBackward, LOW);\n  digitalWrite(leftMotorForward, LOW);\n  digitalWrite(leftMotorBackward, HIGH);\n}\n\nvoid MotorDriver::stopRobot() {\n  digitalWrite(rightMotorForward, LOW);\n  digitalWrite(rightMotorBackward, LOW);\n  digitalWrite(leftMotorForward, LOW);\n  digitalWrite(leftMotorBackward, LOW);\n}\n\n\n",
-        "MotorDriver.h": "#pragma once\n\n#include <Arduino.h>\n\nclass MotorDriver {\n  private:\n    int rightMotorForward;\n    int rightMotorBackward;\n    int leftMotorForward;\n    int leftMotorBackward;\n    int pinSpeedA;\n    int pinSpeedB;\n\n  public:\n    MotorDriver(int rFwd, int rBwd, int lFwd, int lBwd, int speedA, int speedB);\n  \n    void initPins();\n    void setSpeed(int speed);\n    void moveForward();\n    void turnRight();\n    void turnLeft();\n    void stopRobot();\n};\n\n\n"
+        "MotorDriver.h": "#pragma once\n\n#include <Arduino.h>\n\nclass MotorDriver {\n  private:\n    int rightMotorForward;\n    int rightMotorBackward;\n    int leftMotorForward;\n    int leftMotorBackward;\n    int pinSpeedA;\n    int pinSpeedB;\n\n  public:\n    MotorDriver(int rFwd, int rBwd, int lFwd, int lBwd, int speedA, int speedB);\n  \n    void initPins();\n    void setSpeed(int speed);\n    void moveForward();\n    void turnRight();\n    void turnLeft();\n    void stopRobot();\n};\n\n\n",
+        "UltrasonicSensor.h": "#pragma once\n#include <Arduino.h>\n\n\nclass UltrasonicSensor{\n\n  private:\n\n  uint8_t trig ;\n  uint8_t echo ;\n  public:\n  UltrasonicSensor(uint8_t t, uint8_t e);\n   void initPins();\n   float readCm(); \n};\n\n\n\n\n\n\n\n\n\n\n\n",
+        "UltrasonicSensor.cpp": "#include\"UltrasonicSensor.h\"\n\nUltrasonicSensor::UltrasonicSensor(uint8_t t, uint8_t e) : trig(t) ,echo(e) {};\n \n\nvoid UltrasonicSensor::initPins(){\n  pinMode(trig , OUTPUT);\n  pinMode(echo , INPUT);\n};\n\nfloat UltrasonicSensor::readCm(){\n\n  digitalWrite(trig , LOW);\n  delayMicroseconds(2);\n\n  digitalWrite(trig, HIGH);\n    delayMicroseconds(10);\n\n  long us = pulseIn(echo , HIGH , 25000 );\n  if(us ==0)\n    return 999;\n  return us * 0.0343f /2;\n  \n};"
       },
       "main": "sketch.ino"
     }
